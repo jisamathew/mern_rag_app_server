@@ -1,0 +1,13 @@
+# Node.js
+node_modules/
+npm-debug.log
+.env
+
+# Build files
+/client/build/
+/server/dist/
+.DS_Store
+
+# VSCode & system
+.vscode/
+*.log
