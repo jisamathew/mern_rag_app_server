@@ -13,7 +13,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middlewares
-app.use(cors());
+// app.use(cors());
+
+// ✅ CORS config
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://mern-rag-app-client.web.app'], 
+  credentials: true,
+}));
 app.use(express.json());
 app.use(fileUpload()); // To handle PDF file uploads
 
