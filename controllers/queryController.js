@@ -45,6 +45,10 @@ import path from 'path'; // Node.js module to extract filenames
 
 export const listDocuments = async (req, res) => {
   const client = new MongoClient(process.env.ATLAS_CONNECTION_STRING);
+  if (!process.env.ATLAS_CONNECTION_STRING) {
+  console.error("❌ ATLAS_CONNECTION_STRING is not defined. Check Railway variables.");
+  process.exit(1);
+}
   await client.connect();
   const collection = client.db("rag_db").collection("test");
 
