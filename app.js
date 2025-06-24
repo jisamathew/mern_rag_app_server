@@ -6,7 +6,7 @@ import fileUpload from 'express-fileupload';
 import ingestRoutes from './routes/ingest.js';
 import queryRoutes from './routes/query.js';
 import vectorRoutes from './routes/vector.js';
-
+import fs from 'fs';
 dotenv.config();
 
 const app = express();
@@ -33,6 +33,12 @@ app.get('/', (req, res) => {
   res.send('Server is up and running 🚀');
 });
 
+
+// Create uploads directory if it doesn't exist
+if (!fs.existsSync('uploads')) {
+  fs.mkdirSync('uploads', { recursive: true });
+  console.log('Created uploads directory');
+}
 // Start server
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
