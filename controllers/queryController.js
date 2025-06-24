@@ -44,11 +44,16 @@ dotenv.config();
 import path from 'path'; // Node.js module to extract filenames
 
 export const listDocuments = async (req, res) => {
-  const client = new MongoClient(process.env.ATLAS_CONNECTION_STRING);
-  if (!process.env.ATLAS_CONNECTION_STRING) {
-  console.error("❌ ATLAS_CONNECTION_STRING is not defined. Check Railway variables.");
-  process.exit(1);
+  console.log('ATLAS_CONNECTION_STRING:', process.env.ATLAS_CONNECTION_STRING ? 'SET' : 'NOT SET');
+console.log('Connection string length:', process.env.ATLAS_CONNECTION_STRING?.length || 0);
+const connectionString = process.env.DATABASE_URL || process.env.MONGODB_URI || process.env.ATLAS_CONNECTION_STRING;
+
+// const connectionString = process.env.ATLAS_CONNECTION_STRING;
+if (!connectionString) {
+    throw new Error('ATLAS_CONNECTION_STRING environment variable is not set');
 }
+
+const client = new MongoClient(connectionString);
   await client.connect();
   const collection = client.db("rag_db").collection("test");
 
